@@ -11,3 +11,8 @@ aws:
       basic: "Youtube/fun-facts/Fact.json"
       gpt:
       logging: 
+gpt:
+  api:
+    url: "https://api.openai.com/v1/chat/completions"
+    key: ${API_KEY}
+    model: "gpt-4"
