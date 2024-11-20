@@ -4,15 +4,15 @@ spring:
 aws:
   s3:
     bucket:
-      basic: "landing-data-bucket-1220-16492640"
+      basic: ${AWS_BASIC_BUCKET}
       gpt:
       logging:
     key:
-      basic: "Youtube/fun-facts/Fact.json"
+      basic: ${AWS_BASIC_BUCKET_KEY}
       gpt:
       logging: 
 gpt:
   api:
-    url: "https://api.openai.com/v1/chat/completions"
+    url: ${GPT_URL}
     key: ${API_KEY}
     model: "gpt-4"

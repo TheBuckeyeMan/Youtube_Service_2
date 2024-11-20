@@ -1,6 +1,5 @@
 package com.example.app.service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-
 
 @Service
 public class SendPostRequest {
@@ -46,7 +44,6 @@ public class SendPostRequest {
             String videoPrompt = response.getBody();
             log.info("The Response from Chat GPT Was: " + videoPrompt);
             return videoPrompt;
-
 
         } catch (Exception e){
             log.error("There was an error sending the API Response to GPT: ", e.getMessage(),e);

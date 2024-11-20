@@ -41,9 +41,7 @@ public class ServiceTrigger {
         log.info("Begining to Collect Contents of Fun Fact form S3 Bucket");
         String funFact = readFile.getBasicFileContents(basicBucketName, basicKey);
         String PostRequestBody = modelPostRequest.modelPostRequest(preMessage, funFact, postMessage, gptmodel);
-        String videoPrompt = sendPostRequest.getVideoPrompt(PostRequestBody);
-
-
+    //    String videoPrompt = sendPostRequest.getVideoPrompt(PostRequestBody);
         log.info("The lambda has triggered successfully:");
     }
 }

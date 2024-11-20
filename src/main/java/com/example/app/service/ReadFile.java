@@ -2,16 +2,12 @@ package com.example.app.service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CompletableFuture;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-
-
 
 @Service
 public class ReadFile {
@@ -29,12 +25,14 @@ public class ReadFile {
                                                                 .bucket(basicBucketName)
                                                                 .key(basicKey)
                                                                 .build();
+
             //Convert byte array to string
             CompletableFuture<String> basicContentFuture = s3Client.getObject(getObjectRequest, AsyncResponseTransformer.toBytes()).thenApply(responseBytes -> {
                 String basicContent = new String(responseBytes.asByteArray(),StandardCharsets.UTF_8);
                 log.info("The content from the basic file saved in the basicContent variable is: " + basicContent);
                 return basicContent;
             });
+
             // Wait for and return the result
             String basicFileContent = basicContentFuture.join();
             if (basicFileContent != null){
