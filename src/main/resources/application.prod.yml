@@ -1,2 +1,2 @@
 spring:
-  test: "Prod"
+  test: "Prod-test"

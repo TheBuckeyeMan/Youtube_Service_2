@@ -1,2 +1,13 @@
 spring:
-  test: "dev"
+  test: "dev-test"
+
+aws:
+  s3:
+    bucket:
+      basic: "landing-data-bucket-1220-16492640"
+      gpt:
+      logging:
+    key:
+      basic: "Youtube/fun-facts/Fact.json"
+      gpt:
+      logging: 
