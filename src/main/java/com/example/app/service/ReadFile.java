@@ -41,12 +41,12 @@ public class ReadFile {
                 return basicFileContent;
             } else {
                 log.error("Error: Basic File Content is blank, or was unable to be retrieved form source");
-                //Add in email notification Service Here
+                // TODO: Add Automated Email Error Handling
                 return "Error: Basic File Content is blank, or was unable to be retrieved form source";
             }
         } catch (Exception e){
             log.error("Error Reading file form S3: {}", e.getMessage(),e);
-            //Add in email notification Service Here
+            // TODO: Add Automated Email Error Handling
             return "Error: Unable to read basic file contents.";
         }
     }

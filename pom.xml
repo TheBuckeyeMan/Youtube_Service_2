@@ -17,6 +17,12 @@
         <aws.lambda.java.version>1.2.3</aws.lambda.java.version>
         <junit5.version>5.10.1</junit5.version>
     </properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/> <!-- Lookup parent from Maven Central -->
+    </parent>
 
     <dependencyManagement>
         <dependencies>
@@ -68,13 +74,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <version>3.2.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
         <!--AWS Dependencies -->
         <dependency>
@@ -104,12 +113,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
+                <!-- <version>${maven.compiler.plugin.version}</version> -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>${maven.shade.plugin.version}</version>
+                <!-- <version>${maven.shade.plugin.version}</version> -->
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <finalName>app</finalName>

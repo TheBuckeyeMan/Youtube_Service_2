@@ -40,7 +40,7 @@ public class ModelPostRequest {
 
         } catch (Exception e){
             log.error("Error: An Error has occured on ModelPostRequest while trying to craft the Json Post Request: ", e.getMessage(), e);
-            //Add in Error email handling here
+            // TODO: Add Automated Email Error Handling
             return "Error: An Error has occured on ModelPostRequest while trying to craft the Json Post Request";
         }
     }

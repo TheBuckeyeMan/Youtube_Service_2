@@ -26,16 +26,14 @@ public class ServiceTrigger {
     @Value("${gpt.api.model}")
     private String gptmodel;
 
-
-
     public ServiceTrigger(ReadFile readFile, ModelPostRequest modelPostRequest, SendPostRequest sendPostRequest){
         this.readFile = readFile;
         this.modelPostRequest = modelPostRequest;
         this.sendPostRequest = sendPostRequest;
     }
 
-    private String preMessage = "Hey GPT! I need you to expand upon this prompt. Pretend you are a storyteller from new york that needs to write a script for a 50 second video clip. The prompt is: ";
-    private String postMessage = "Expand upon this fun fact and add alittle new york charm.";
+    private String preMessage = "Hey GPT! I need you to expand upon this fun fact. I need the expaned fun fact to start with (did you know that) and be 500 words long. The prompt is: ";
+    private String postMessage = "Ensure you have expanded upon the fun fact. I DO NOT want a narration, just a script";
 
 
     public void TriggerService(){
@@ -43,7 +41,7 @@ public class ServiceTrigger {
         log.info("Begining to Collect Contents of Fun Fact form S3 Bucket");
         String funFact = readFile.getBasicFileContents(basicBucketName, basicKey);
         String PostRequestBody = modelPostRequest.modelPostRequest(preMessage, funFact, postMessage, gptmodel);
-       // String videoPrompt = 
+        String videoPrompt = sendPostRequest.getVideoPrompt(PostRequestBody);
 
 
         log.info("The lambda has triggered successfully:");
