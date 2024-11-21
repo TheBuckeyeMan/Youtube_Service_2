@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import software.amazon.awssdk.regions.servicemetadata.PollyServiceMetadata;
 import java.util.Map;
 
 @Service

@@ -5,6 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -40,8 +44,13 @@ public class SendPostRequest {
                 String.class
             );
 
+            //Get only the content of the message
+            log.info("The Json Contents of the Json Response from CatGPT was: " + response.getBody());
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode root = objectMapper.readTree(response.getBody());
+            String videoPrompt = root.at("/choices/0/message/content").asText();
+
             //Log Response
-            String videoPrompt = response.getBody();
             log.info("The Response from Chat GPT Was: " + videoPrompt);
             return videoPrompt;
 

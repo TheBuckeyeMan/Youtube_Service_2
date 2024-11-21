@@ -5,11 +5,11 @@ aws:
   s3:
     bucket:
       basic: ${AWS_BASIC_BUCKET}
-      gpt:
+      gpt: ${GPT_BUCKET_NAME}
       logging:
     key:
       basic: ${AWS_BASIC_BUCKET_KEY}
-      gpt:
+      gpt: ${GPT_BUCKET_KEY}
       logging: 
 gpt:
   api:
