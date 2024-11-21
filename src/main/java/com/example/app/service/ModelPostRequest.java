@@ -1,5 +1,6 @@
 package com.example.app.service;
 
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,11 @@ import java.util.Map;
 @Service
 public class ModelPostRequest {
     public static final Logger log = LoggerFactory.getLogger(ModelPostRequest.class);
+    private S3LoggingService s3LoggingService;
+
+    public ModelPostRequest(S3LoggingService s3LoggingService){
+        this.s3LoggingService = s3LoggingService;
+    }
 
     public String modelPostRequest(String preMessage, String funFact, String postMessage, String gptmodel){
         try{
@@ -33,7 +39,7 @@ public class ModelPostRequest {
 
         } catch (Exception e){
             log.error("Error: An Error has occured on ModelPostRequest while trying to craft the Json Post Request: ", e.getMessage(), e);
-            // TODO: Add Automated Email Error Handling
+            s3LoggingService.logMessageToS3("Error: An Error has occured on ModelPostRequest while trying to craft the Json Post Request line 42 of ModelPostRequest.java: " + LocalDate.now() + " On: youtube-service-2" + ",");
             return "Error: An Error has occured on ModelPostRequest while trying to craft the Json Post Request";
         }
     }

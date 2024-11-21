@@ -1,5 +1,7 @@
 package com.example.app.service;
 
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +19,11 @@ import org.springframework.http.ResponseEntity;
 @Service
 public class SendPostRequest {
     private static final Logger log = LoggerFactory.getLogger(SendPostRequest.class);
+    private S3LoggingService s3LoggingService;
+
+    public SendPostRequest(S3LoggingService s3LoggingService){
+        this.s3LoggingService = s3LoggingService;
+    }
 
     @Value("${gpt.api.url}")
     private String gpturl;
@@ -57,7 +64,7 @@ public class SendPostRequest {
         } catch (Exception e){
             log.error("There was an error sending the API Response to GPT: ", e.getMessage(),e);
             log.error("Please check GPT API Billing to ensure you have the required credits to make the api Request!");
-            // TODO: Add Automated Email Error Handling
+            s3LoggingService.logMessageToS3("Error: There was an error sending the API Response to GPT Please check GPT API Billing to ensure you have the required credits to make the api Request! Line 67 SendPostRequest.java: " + LocalDate.now() + " On: youtube-service-2" + ",");
             return "There was an error sending the API Response to GPT";
         }
     }

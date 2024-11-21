@@ -1,11 +1,10 @@
 package com.example.app.service;
 
 import java.io.File;
-
+import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
@@ -14,10 +13,13 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 public class PostFileToS3 {
     private static final Logger log = LoggerFactory.getLogger(PostFileToS3.class);
     private final S3Client s3Client;
+    private S3LoggingService s3LoggingService;
+    
 
 
-    public PostFileToS3(S3Client s3Client){
+    public PostFileToS3(S3Client s3Client, S3LoggingService s3LoggingService){
         this.s3Client = s3Client;
+        this.s3LoggingService = s3LoggingService;
     }
 
     public void PostFileToS3Bucket(File S3File, String gptBucketName, String gptBucketKey){

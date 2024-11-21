@@ -6,11 +6,11 @@ aws:
     bucket:
       basic: ${AWS_BASIC_BUCKET}
       gpt: ${GPT_BUCKET_NAME}
-      logging:
+      logging: ${LOGGING_BUCKET_NAME}
     key:
       basic: ${AWS_BASIC_BUCKET_KEY}
       gpt: ${GPT_BUCKET_KEY}
-      logging: 
+      logging: ${LOGGING_BUCKET_KEY}
 gpt:
   api:
     url: ${GPT_URL}

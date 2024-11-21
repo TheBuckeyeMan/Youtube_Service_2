@@ -1,7 +1,7 @@
 package com.example.app.service;
 
 import java.io.File;
-
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +17,7 @@ public class ServiceTrigger {
     private SendPostRequest sendPostRequest;
     private PrepFileForS3 prepFileForS3;
     private PostFileToS3 postFileToS3;
+    private S3LoggingService s3LoggingService;
 
     @Value("${spring.profiles.active}")
     private String environment;
@@ -36,12 +37,13 @@ public class ServiceTrigger {
     @Value("${aws.s3.key.gpt}")
     private String gptBucketKey;
 
-    public ServiceTrigger(ReadFile readFile, ModelPostRequest modelPostRequest, SendPostRequest sendPostRequest, PrepFileForS3 prepFileForS3, PostFileToS3 postFileToS3){
+    public ServiceTrigger(ReadFile readFile, ModelPostRequest modelPostRequest, SendPostRequest sendPostRequest, PrepFileForS3 prepFileForS3, PostFileToS3 postFileToS3, S3LoggingService s3LoggingService){
         this.readFile = readFile;
         this.modelPostRequest = modelPostRequest;
         this.sendPostRequest = sendPostRequest;
         this.prepFileForS3 = prepFileForS3;
         this.postFileToS3 = postFileToS3;
+        this.s3LoggingService = s3LoggingService;
     }
 
     private String preMessage = "Hey GPT! I need you to expand upon this fun fact. I need the expaned fun fact to start with (did you know that) and be 500 words long. The prompt is: ";
@@ -61,6 +63,7 @@ public class ServiceTrigger {
         postFileToS3.PostFileToS3Bucket(S3File,gptBucketName ,gptBucketKey);
 
         //Successful Completion Logs
+        s3LoggingService.logMessageToS3("Succcess: Success occured at: " + LocalDateTime.now() + " On: youtube-service-2" + ",");
         log.info("Final: The Lambda has triggered successfully and the video contents are now saved in the S3 Bucket: " + gptBucketName);
     }
 }
