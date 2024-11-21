@@ -20,7 +20,7 @@ public class LambdaHandler implements RequestHandler<Object, Object> {
 
     public LambdaHandler() {
         this.context = new SpringApplicationBuilder(App.class)
-                    .web(WebApplicationType.NONE)
+                    // .web(WebApplicationType.NONE)
                     .run();
         s3Client = DependencyFactory.s3Client();
         this.serviceTrigger = context.getBean(ServiceTrigger.class); // If we need to call additional methods we can add additional classes here
