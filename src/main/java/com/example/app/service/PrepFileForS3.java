@@ -2,6 +2,7 @@ package com.example.app.service;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PrepFileForS3 {
     private static final Logger log = LoggerFactory.getLogger(PrepFileForS3.class);
+    private S3LoggingService s3LoggingService;
+
+    public PrepFileForS3(S3LoggingService s3LoggingService){
+        this.s3LoggingService = s3LoggingService;
+    }
 
     @Value("${aws.s3.bucket.gpt}")
     private String gptBucketName;
@@ -40,7 +46,7 @@ public class PrepFileForS3 {
 
         } catch (Exception e){
             log.info("Error: Error on PrepFileForS3: We were unable to write the contents of the Response to the Temporaty file for S3");
-            // TODO: Add Automated Email Error Handling
+            s3LoggingService.logMessageToS3("Error: Error on PrepFileForS3. We were unable to write the contents of the Response to the Temporaty file for S3 PrepFileForS3.java line 49: " + LocalDate.now() + " On: youtube-service-2" + ",");
             throw new RuntimeException("Failed to save file to S3", e);
 
         }
