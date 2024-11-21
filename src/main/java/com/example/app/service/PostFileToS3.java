@@ -26,8 +26,7 @@ public class PostFileToS3 {
         try{
             //Verify file Exists
             if (!S3File.exists()){
-                throw new IllegalArgumentException("File Does Not Exist: " + S3File.getAbsolutePath());
-                // TODO: Add Automated Email Error Handling
+                s3LoggingService.logMessageToS3("Error: Error on PostFileToS3.java. S3File Does not Exist - PostFileToS3 line 29: " + LocalDate.now() + " On: youtube-service-2" + ",");
             }
 
             //Create the Put Object Request
@@ -41,8 +40,8 @@ public class PostFileToS3 {
             log.info("GPT File has been successfully saved to the " + gptBucketName + " Bucket!");
         } catch (Exception e){
             log.error("Error: Error on PostFileToS3 - uploading the GPT File to the S3 Bucket has failed. Line 41", e.getMessage(),e);
-            throw new RuntimeException("Filed TO Upload file to S3", e);
-            // TODO: Add Automated Email Error Handling
+            s3LoggingService.logMessageToS3("Error: Error on PostFileToS3.java. Filed To Upload file to S3 - PostFileToS3 line 43: " + LocalDate.now() + " On: youtube-service-2" + ",");
+            throw new RuntimeException("Filed To Upload file to S3", e);
         }
 
         
