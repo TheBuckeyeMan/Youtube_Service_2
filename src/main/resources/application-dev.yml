@@ -16,3 +16,4 @@ gpt:
     url: ${GPT_URL}
     key: ${API_KEY}
     model: "gpt-4"
+    
