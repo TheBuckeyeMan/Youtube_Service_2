@@ -57,7 +57,7 @@ public class ServiceTrigger {
         String funFact = readFile.getBasicFileContents(basicBucketName, basicKey);
         String PostRequestBody = modelPostRequest.modelPostRequest(preMessage, funFact, postMessage, gptmodel);
         String videoPrompt = sendPostRequest.getVideoPrompt(PostRequestBody);
-        File S3File = prepFileForS3.PrepFileForS3(videoPrompt);
+        File S3File = prepFileForS3.PrepFileForS3Upload(videoPrompt);
         postFileToS3.PostFileToS3Bucket(S3File,gptBucketName ,gptBucketKey);
 
         //Successful Completion Logs

@@ -5,11 +5,11 @@ aws:
   s3:
     bucket:
       basic: ${AWS_BASIC_BUCKET}
-      gpt: "landing-data-bucket-1220-16492640"
+      gpt: ${GPT_BUCKET_NAME}
       logging:
     key:
       basic: ${AWS_BASIC_BUCKET_KEY}
-      gpt: "Youtube/gpt-fun-facts/videoprompt.txt"
+      gpt: ${GPT_BUCKET_KEY}
       logging: 
 gpt:
   api:

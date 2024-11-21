@@ -18,7 +18,7 @@ public class PrepFileForS3 {
     @Value("${aws.s3.key.gpt}")
     private String gptBucketKey;
 
-    public File PrepFileForS3(String videoPrompt){
+    public File PrepFileForS3Upload(String videoPrompt){
         try{
             //Get the Temp Directory
             String fileName = "gptresponse.txt";
