@@ -14,14 +14,18 @@ import software.amazon.awssdk.services.s3.S3AsyncClient;
 
 
 public class LambdaHandler implements RequestHandler<Object, Object> {
-    private final ApplicationContext context;
+    private final static ApplicationContext context;
     private final S3AsyncClient s3Client;
     private ServiceTrigger serviceTrigger;
+    
+    static {
+        context = new SpringApplicationBuilder(App.class)
+                .web(WebApplicationType.NONE)
+                .run();
 
+    }
+    
     public LambdaHandler() {
-        this.context = new SpringApplicationBuilder(App.class)
-                    .web(WebApplicationType.NONE)
-                    .run();
         s3Client = DependencyFactory.s3Client();
         this.serviceTrigger = context.getBean(ServiceTrigger.class); // If we need to call additional methods we can add additional classes here
     }

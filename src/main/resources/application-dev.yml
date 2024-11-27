@@ -1,5 +1,8 @@
 spring:
   test: "dev-test"
+  cloud:
+    function:
+      definition: processRequest
 
 aws:
   s3:
@@ -16,4 +19,3 @@ gpt:
     url: ${GPT_URL}
     key: ${API_KEY}
     model: "gpt-4"
-    
