@@ -1,40 +1,33 @@
 package com.example.app.api.Handler;
 
-import software.amazon.awssdk.services.s3.S3AsyncClient;
-
-import org.springframework.boot.WebApplicationType;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContext;
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.example.app.App;
 import com.example.app.service.ServiceTrigger;
-import software.amazon.awssdk.services.s3.S3AsyncClient;
+import com.amazonaws.serverless.proxy.internal.testutils.AwsProxyRequestBuilder;
+import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
+import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
+import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
 
+public class LambdaHandler implements RequestStreamHandler {
+    private static SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
 
-public class LambdaHandler implements RequestHandler<Object, Object> {
-    private final static ApplicationContext context;
-    private final S3AsyncClient s3Client;
-    private ServiceTrigger serviceTrigger;
-    
     static {
-        context = new SpringApplicationBuilder(App.class)
-                .web(WebApplicationType.NONE)
-                .run();
-
-    }
-    
-    public LambdaHandler() {
-        s3Client = DependencyFactory.s3Client();
-        this.serviceTrigger = context.getBean(ServiceTrigger.class); // If we need to call additional methods we can add additional classes here
+        try {
+            // Initialize the Spring context once
+            handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(App.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to initialize Spring Boot application", e);
+        }
     }
 
     @Override
-    public Object handleRequest(final Object input, final Context context) {
-        serviceTrigger.TriggerService();
-        return input;
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
+        // Delegate the request handling to the container handler
+        handler.proxyStream(inputStream, outputStream, context);
     }
-
-    
 }
