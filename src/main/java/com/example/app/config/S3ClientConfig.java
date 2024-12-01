@@ -2,7 +2,6 @@ package com.example.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.http.crt.AwsCrtAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;

@@ -15,8 +15,6 @@ public class PostFileToS3 {
     private final S3Client s3Client;
     private S3LoggingService s3LoggingService;
     
-
-
     public PostFileToS3(S3Client s3Client, S3LoggingService s3LoggingService){
         this.s3Client = s3Client;
         this.s3LoggingService = s3LoggingService;
@@ -42,10 +40,6 @@ public class PostFileToS3 {
             log.error("Error: Error on PostFileToS3 - uploading the GPT File to the S3 Bucket has failed. Line 41", e.getMessage(),e);
             s3LoggingService.logMessageToS3("Error: Error on PostFileToS3.java. Filed To Upload file to S3 - PostFileToS3 line 43: " + LocalDate.now() + " On: youtube-service-2" + ",");
             throw new RuntimeException("Filed To Upload file to S3", e);
-        }
-
-        
+        }  
     }
-
-    
 }

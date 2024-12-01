@@ -1,7 +1,6 @@
 package com.example.app.api.Handler;
 
 import software.amazon.awssdk.services.s3.S3AsyncClient;
-
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -11,8 +10,6 @@ import com.example.app.App;
 import com.example.app.service.ServiceTrigger;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 
-
-
 public class LambdaHandler implements RequestHandler<Object, Object> {
     private final ApplicationContext context;
     private final S3AsyncClient s3Client;
@@ -20,7 +17,7 @@ public class LambdaHandler implements RequestHandler<Object, Object> {
 
     public LambdaHandler() {
         this.context = new SpringApplicationBuilder(App.class)
-                    // .web(WebApplicationType.NONE)
+                    .web(WebApplicationType.NONE)
                     .run();
         s3Client = DependencyFactory.s3Client();
         this.serviceTrigger = context.getBean(ServiceTrigger.class); // If we need to call additional methods we can add additional classes here
@@ -31,6 +28,4 @@ public class LambdaHandler implements RequestHandler<Object, Object> {
         serviceTrigger.TriggerService();
         return input;
     }
-
-    
 }

@@ -13,7 +13,6 @@ import software.amazon.awssdk.services.s3.S3AsyncClient;
 public class DependencyFactory {
 
     private DependencyFactory() {}
-
     /**
      * @return an instance of S3AsyncClient
      */
