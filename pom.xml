@@ -113,24 +113,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <!-- <version>${maven.compiler.plugin.version}</version> -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <!-- <version>${maven.shade.plugin.version}</version> -->
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <finalName>app</finalName>
-                    <!-- <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                        
-                                <exclude>module-info.class</exclude>
-                            </excludes>
-                        </filter>
-                    </filters> -->
                 </configuration>
                 <executions>
                     <execution>

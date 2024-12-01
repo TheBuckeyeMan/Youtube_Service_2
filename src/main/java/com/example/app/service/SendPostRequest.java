@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +22,9 @@ public class SendPostRequest {
     private static final Logger log = LoggerFactory.getLogger(SendPostRequest.class);
     private S3LoggingService s3LoggingService;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public SendPostRequest(S3LoggingService s3LoggingService){
         this.s3LoggingService = s3LoggingService;
     }
@@ -33,7 +37,7 @@ public class SendPostRequest {
 
     public String getVideoPrompt(String PostRequestBody){
         try{
-            RestTemplate restTemplate = new RestTemplate();
+            // RestTemplate restTemplate = new RestTemplate();
 
             //Add Headers
             HttpHeaders headers = new HttpHeaders();
