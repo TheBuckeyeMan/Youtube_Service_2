@@ -28,7 +28,7 @@ public class PrepFileForS3 {
         try{
             //Get the Temp Directory
             String fileName = "gptresponse.txt";
-            String tempDir = System.getProperty("java.io.tempdir");
+            String tempDir = "/tmp";
 
             //Create a new temp file
             File tempFile = new File(tempDir, fileName);
