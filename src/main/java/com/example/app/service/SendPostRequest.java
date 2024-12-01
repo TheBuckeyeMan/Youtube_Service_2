@@ -22,8 +22,8 @@ public class SendPostRequest {
     private static final Logger log = LoggerFactory.getLogger(SendPostRequest.class);
     private S3LoggingService s3LoggingService;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    // @Autowired
+    // private RestTemplate restTemplate;
 
     public SendPostRequest(S3LoggingService s3LoggingService){
         this.s3LoggingService = s3LoggingService;
@@ -37,7 +37,7 @@ public class SendPostRequest {
 
     public String getVideoPrompt(String PostRequestBody){
         try{
-            // RestTemplate restTemplate = new RestTemplate();
+             RestTemplate restTemplate = new RestTemplate();
 
             //Add Headers
             HttpHeaders headers = new HttpHeaders();

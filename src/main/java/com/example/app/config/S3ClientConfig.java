@@ -27,8 +27,8 @@ public class S3ClientConfig {
         return S3Client.builder().build();
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    } 
+    // @Bean
+    // public RestTemplate restTemplate() {
+    //     return new RestTemplate();
+    // } 
 }
