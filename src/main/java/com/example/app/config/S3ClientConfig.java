@@ -2,8 +2,6 @@ package com.example.app.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
-
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.http.crt.AwsCrtAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
@@ -26,9 +24,4 @@ public class S3ClientConfig {
     public S3Client s3Client(){
         return S3Client.builder().build();
     }
-
-    // @Bean
-    // public RestTemplate restTemplate() {
-    //     return new RestTemplate();
-    // } 
 }

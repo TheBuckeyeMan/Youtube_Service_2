@@ -3,7 +3,6 @@ package com.example.app.service;
 import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDate;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,10 +47,6 @@ public class PrepFileForS3 {
             log.info("Error: Error on PrepFileForS3: We were unable to write the contents of the Response to the Temporaty file for S3");
             s3LoggingService.logMessageToS3("Error: Error on PrepFileForS3. We were unable to write the contents of the Response to the Temporaty file for S3 PrepFileForS3.java line 49: " + LocalDate.now() + " On: youtube-service-2" + ",");
             throw new RuntimeException("Failed to save file to S3", e);
-
         }
-
     }
-
-
 }
