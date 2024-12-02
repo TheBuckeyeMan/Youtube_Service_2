@@ -1,0 +1,18 @@
+spring:
+  test: "dev-test"
+
+aws:
+  s3:
+    bucket:
+      basic: ${AWS_BASIC_BUCKET}
+      gpt: ${GPT_BUCKET_NAME}
+      logging: ${LOGGING_BUCKET_NAME}
+    key:
+      basic: ${AWS_BASIC_BUCKET_KEY}
+      gpt: ${GPT_BUCKET_KEY}
+      logging: ${LOGGING_BUCKET_KEY}
+gpt:
+  api:
+    url: ${GPT_URL}
+    key: ${API_KEY}
+    model: "gpt-4"
