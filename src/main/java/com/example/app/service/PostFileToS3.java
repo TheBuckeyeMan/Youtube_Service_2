@@ -2,6 +2,8 @@ package com.example.app.service;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ public class PostFileToS3 {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                                                                 .bucket(gptBucketName)
                                                                 .key(gptBucketKey)
+                                                                .metadata(Map.of("force-update", String.valueOf(System.currentTimeMillis()))) // Add unique metadata
                                                                 .build();
             
             //Upload the file
