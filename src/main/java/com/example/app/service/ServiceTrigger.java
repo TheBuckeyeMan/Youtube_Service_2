@@ -46,7 +46,7 @@ public class ServiceTrigger {
         this.s3LoggingService = s3LoggingService;
     }
 
-    private String preMessage = "Hey GPT! I need you to expand upon this fun fact. I need the expaned fun fact to start with (did you know that) and be 150 words long. The prompt is: ";
+    private String preMessage = "Hey GPT! I need you to expand upon this fun fact. I need the expaned fun fact to start with (did you know that) and be 100 words long. The prompt is: ";
     private String postMessage = "Ensure you have expanded upon the fun fact. I DO NOT want a narration, just a script";
 
 
