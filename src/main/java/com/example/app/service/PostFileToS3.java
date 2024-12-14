@@ -33,7 +33,6 @@ public class PostFileToS3 {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                                                                 .bucket(gptBucketName)
                                                                 .key(gptBucketKey)
-                                                                .metadata(Map.of("force-update", String.valueOf(System.currentTimeMillis()))) // Add unique metadata
                                                                 .build();
             
             //Upload the file

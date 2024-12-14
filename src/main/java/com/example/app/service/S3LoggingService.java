@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -85,6 +86,7 @@ public class S3LoggingService {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(loggingBucketName)
                 .key(loggingBucketKey)
+                .metadata(Map.of("force-update", String.valueOf(System.currentTimeMillis())))
                 .build();
 
             s3Client.putObject(putObjectRequest, RequestBody.fromFile(Paths.get(fileName)));
