@@ -18,6 +18,7 @@ public class ServiceTrigger {
     private PrepFileForS3 prepFileForS3;
     private PostFileToS3 postFileToS3;
     private S3LoggingService s3LoggingService;
+    private GetMessages getMessages;
 
     @Value("${spring.profiles.active}")
     private String environment;
@@ -37,17 +38,21 @@ public class ServiceTrigger {
     @Value("${aws.s3.key.gpt}")
     private String gptBucketKey;
 
-    public ServiceTrigger(ReadFile readFile, ModelPostRequest modelPostRequest, SendPostRequest sendPostRequest, PrepFileForS3 prepFileForS3, PostFileToS3 postFileToS3, S3LoggingService s3LoggingService){
+    @Value("${aws.s3.key.tags}")
+    private String tagsBucketKey;
+
+    public ServiceTrigger(ReadFile readFile, ModelPostRequest modelPostRequest, SendPostRequest sendPostRequest, PrepFileForS3 prepFileForS3, PostFileToS3 postFileToS3, S3LoggingService s3LoggingService, GetMessages getMessages){
         this.readFile = readFile;
         this.modelPostRequest = modelPostRequest;
         this.sendPostRequest = sendPostRequest;
         this.prepFileForS3 = prepFileForS3;
         this.postFileToS3 = postFileToS3;
         this.s3LoggingService = s3LoggingService;
+        this.getMessages = getMessages;
     }
 
     private String preMessage = "Hey GPT! I need you to expand upon this fun fact. I need the expaned fun fact to start with (did you know that) and be 100 words long. The prompt is: ";
-    private String postMessage = "Ensure you have expanded upon the fun fact. I DO NOT want a narration, just a script";
+    private String postMessage = " Ensure you have expanded upon the fun fact. I DO NOT want a narration, just a script. After the 100 word response I want 15 hashtags about your prompt that will work with the youtube algorythum to get the video recognized.";
 
 
     public void TriggerService(){
@@ -59,7 +64,21 @@ public class ServiceTrigger {
         String funFact = readFile.getBasicFileContents(basicBucketName, basicKey);
         String PostRequestBody = modelPostRequest.modelPostRequest(preMessage, funFact, postMessage, gptmodel);
         String videoPrompt = sendPostRequest.getVideoPrompt(PostRequestBody);
-        File S3File = prepFileForS3.PrepFileForS3Upload(videoPrompt);
+
+        //get final video prompt
+        String prompt = getMessages.getVideoPrompt(videoPrompt);
+        log.info("The Video Prompt is: " + prompt);
+
+        //get hashtags
+        String tags = getMessages.getHashtags(videoPrompt);
+        log.info("Video Hashtags are: " + tags);
+
+        //Save Hashtags
+        File TagsFile = prepFileForS3.PrepFileForS3Upload(tags);
+        postFileToS3.PostFileToS3Bucket(TagsFile, gptBucketName, tagsBucketKey);
+
+        //Save Video Prompt
+        File S3File = prepFileForS3.PrepFileForS3Upload(prompt);
         postFileToS3.PostFileToS3Bucket(S3File,gptBucketName ,gptBucketKey);
 
         //Successful Completion Logs

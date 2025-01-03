@@ -11,6 +11,7 @@ aws:
       basic: ${AWS_BASIC_BUCKET_KEY}
       gpt: ${GPT_BUCKET_KEY}
       logging: ${LOGGING_BUCKET_KEY}
+      tags: ${TAGS_BUCKET_KEY}
 gpt:
   api:
     url: ${GPT_URL}
